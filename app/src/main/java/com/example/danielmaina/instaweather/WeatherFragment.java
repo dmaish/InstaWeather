@@ -1,13 +1,18 @@
-package com.example.danielmaina.instaweather;
+package com.example.danielmaina. instaweather;
 
+import android.app.Fragment;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
  * Created by danielmaina on 9/20/16.
  */
-public class WeatherFragment {
+public class WeatherFragment extends Fragment {
     Typeface weatherFont;
 
     TextView cityField;
@@ -23,4 +28,42 @@ public class WeatherFragment {
         handler=new Handler();
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState){
+
+        View rootView = inflater.inflate(R.layout.fragment_weather,container,false);
+        cityField = (TextView)rootView.findViewById(R.id.city_field);
+        updatedField = (TextView)rootView.findViewById(R.id.updated_field);
+        detailsField = (TextView)rootView.findViewById(R.id.details_field);
+        currentTemperatureField = (TextView)rootView.findViewById(R.id.current_temperature_field);
+        weatherIcon = (TextView)rootView.findViewById(R.id.weather_icon);
+
+        weatherIcon.setTypeface(weatherFont);
+        return rootView;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
