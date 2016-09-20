@@ -20,7 +20,7 @@ public class RemoteFetch {
             HttpURLConnection connection =
                     (HttpURLConnection)url.openConnection();
 
-
+//ATTENTIIIIIIIIIIIIIIIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON!!!!!!!!!!!!!!!!R
   //am not sure if the "x-api-key" is where i should type in my API KEY...BUT TIME WILL TELL
             connection.addRequestProperty("x-api-key",
                     context.getString(R.string.open_weather_maps_app_id));
