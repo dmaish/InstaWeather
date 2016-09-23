@@ -1,50 +1,53 @@
 package com.example.danielmaina.instaweather;
 
 import android.content.Context;
+import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by danielmaina on 9/20/16.
  */
 public class RemoteFetch {
-    private static final String OPEN_WEATHER_MAP_API="http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
-    public static JSONObject getJSON(Context context, String city){
+
+
+    private static final String TAG = "DANIEL MAINA LOGS:" ;
+
+    public static  JSONObject getJSON(Context context, String city) {
+        JSONObject myJsonObject=new JSONObject();
+        //define client
+        OkHttpClient client = new OkHttpClient();
+
+        //create the request
+        Request request = new Request.Builder()
+                .url(constantsFile.BASE_URL + city + constantsFile.MY_OPEN_WEATHER_KEY)
+                .build();
+        //create the call
+        Call call = client.newCall(request);
+
+
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city));
-            HttpURLConnection connection =
-                    (HttpURLConnection)url.openConnection();
+            //create the response
+            Response response = call.execute();
+            if(response.isSuccessful()) {
+                String res = response.body().string();
+                myJsonObject=new JSONObject(res);
+                Log.v(TAG, res);
 
-//ATTENTIIIIIIIIIIIIIIIOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOON!!!!!!!!!!!!!!!!R
-  //am not sure if the "x-api-key" is where i should type in my API KEY...BUT TIME WILL TELL
-            connection.addRequestProperty("x-api-key",
-                    context.getString(R.string.open_weather_maps_app_id));
-
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-
-            StringBuffer json = new StringBuffer(1024);
-            String tmp="";
-            while((tmp=reader.readLine())!=null)
-                json.append(tmp).append("\n");
-            reader.close();
-
-            JSONObject data = new JSONObject(json.toString());
-
-            // This value will be 404 if the request was not
-            // successful
-            if(data.getInt("cod") != 200){
-                return null;
             }
 
-            return data;
-        }catch(Exception e){
-            return null;
+        } catch (JSONException|IOException e) {
+            Log.e(TAG,"Exception caught:", e);
         }
-    }
-}
+
+        return myJsonObject;
+    }}
+

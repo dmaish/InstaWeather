@@ -18,7 +18,7 @@ public class CityPreference {
     //if the user has not chosen a city yet,return
     //Nairobi,kenya as the default city
     String getCity(){
-        return prefs.getString("city","Nairobi,ke");
+        return prefs.getString("city","Nairobi");
     }
     void  setCity(String city){
         prefs.edit().putString("city",city).commit();
