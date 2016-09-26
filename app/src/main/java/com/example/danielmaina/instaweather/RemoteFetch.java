@@ -36,10 +36,12 @@ public class RemoteFetch {
 
         try {
             //create the response
+
             Response response = call.execute();
             if(response.isSuccessful()) {
+                //the myJsonObject created
                 String res = response.body().string();
-                myJsonObject=new JSONObject(res);
+               myJsonObject=new JSONObject(res);
                 Log.v(TAG, res);
 
             }

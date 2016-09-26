@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -96,9 +97,9 @@ public class WeatherFragment extends Fragment {
             currentTemperatureField.setText(
                     String.format("%.2f", main.getDouble("temp"))+ " ℃");
 
-//            DateFormat df = DateFormat.getDateTimeInstance();
-//            String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-//            updatedField.setText("Last update: " + updatedOn);
+           DateFormat df = DateFormat.getDateTimeInstance();
+           String updatedOn = df.format(new Date(json.getLong("dt")*1000));
+            updatedField.setText("Last update: " + updatedOn);
 
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
